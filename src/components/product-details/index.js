@@ -1,7 +1,7 @@
 import { Component } from "react";
 import image from "../../images/Image.png";
-import ColorChoices from "../color-choices";
-import SizesChoices from "../size-choices";
+import ColorChoices from "../color-choicer";
+import SizesChoices from "../size-choicer";
 import "./product-details.scss";
 class ProductDetails extends Component {
   constructor(props) {
@@ -11,6 +11,13 @@ class ProductDetails extends Component {
   componentDidMount() {
     console.log(this.props.match.params.id, "from params");
   }
+
+  handleColorChange = (color) => {
+    console.log(color, "this is the color from the parent component");
+  };
+  handleSizeChange = (size) => {
+    console.log(size, "from size in the parent element");
+  };
   render() {
     return (
       <section className="productdetails">
@@ -35,11 +42,19 @@ class ProductDetails extends Component {
           </div>
           <div className="productdetails__sizes">
             <h4 className="productdetails__subtitle">SIZE: </h4>
-            <SizesChoices />
+            <SizesChoices
+              currentActiveSize="s"
+              sizes={["s", "m", "l"]}
+              handleSizeChange={this.handleSizeChange}
+            />
           </div>
           <div className="productdetails__colors">
             <h4 className="productdetails__subtitle">COLOR: </h4>
-            <ColorChoices />
+            <ColorChoices
+              currentActiveChoice="#D3D2D5"
+              choices={["#D3D2D5", "#000000", "#0F6450"]}
+              handleChoiceChange={this.handleColorChange}
+            />
           </div>
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
