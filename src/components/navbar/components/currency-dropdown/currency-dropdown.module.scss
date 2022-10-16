@@ -1,0 +1,47 @@
+.currency {
+  position: relative;
+  &__dropdowntoggler {
+    border: none;
+    background-color: #fff;
+    margin-right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 1rem;
+    margin-left: 0.25rem;
+  }
+
+  &__dropdown {
+    position: absolute;
+    display: none;
+    bottom: -129px;
+    left: -27px;
+    -webkit-box-shadow: -1px 4px 37px -13px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 4px 37px -13px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 4px 37px -13px rgba(0, 0, 0, 0.75);
+    &__list {
+      list-style-type: none;
+    }
+    &__option {
+      padding: 0.75rem 1.25rem;
+      button {
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        display: flex;
+        span {
+          margin-left: 0.5rem;
+        }
+      }
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    &Opened {
+      display: block;
+    }
+  }
+}

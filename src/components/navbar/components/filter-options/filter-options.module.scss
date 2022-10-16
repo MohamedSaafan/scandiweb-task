@@ -1,0 +1,30 @@
+.navs {
+  display: flex;
+  list-style-type: none;
+
+  &__nav {
+    margin-right: 1rem;
+    button {
+      cursor: pointer;
+      background-color: #fff;
+      border: none;
+      color: #000;
+    }
+    &::after {
+      content: " ";
+      width: 100%;
+      display: none;
+      height: 2px;
+      background-color: var(--active-color);
+      margin-top: 0.5rem;
+    }
+    &Active {
+      button {
+        color: var(--active-color);
+      }
+      &::after {
+        display: block;
+      }
+    }
+  }
+}

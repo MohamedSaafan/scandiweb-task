@@ -1,0 +1,20 @@
+.sizeschoices {
+  display: flex;
+  list-style-type: none;
+  &__choice {
+    button {
+      border: 1px solid #000;
+      background-color: #fff;
+      width: 4rem;
+      height: 2.9rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+    &Active {
+      button {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+}

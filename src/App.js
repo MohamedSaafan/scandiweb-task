@@ -5,24 +5,27 @@ import React from "react";
 import {
   BrowserRouter,
   BrowserRouter as Router,
+  Redirect,
   Route,
-  Routes,
+  Switch,
 } from "react-router-dom";
-import ProductsList from "./components/products-list";
 import Cart from "./components/cart";
 import Navbar from "./components/navbar";
+import Products from "./components/products";
+import ProductDetails from "./components/product-details";
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <Navbar />
-
         <main className="main">
-          <Routes>
-            <Route path="/" element={<ProductsList />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
+          <Switch>
+            <Route path="/products" exact component={Products} />
+            <Route path="/products/:id" component={ProductDetails} />
+            <Route path="/cart" component={Cart} />
+            <Redirect to="/products" />
+          </Switch>
         </main>
       </BrowserRouter>
     );
