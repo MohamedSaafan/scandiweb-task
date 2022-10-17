@@ -12,35 +12,56 @@ import Styles from "./currency-dropdown.module.scss";
 class CurrencyDropDown extends Component {
   constructor(props) {
     super(props);
-    this.state = { isCurrencyDropOpened: false, currentCurrency: "usd" };
+    this.state = { isCurrencyDropOpened: false };
+  }
+
+  componentDidUpdate() {
+    if (
+      JSON.stringify(this.props.currentCurrency) !==
+      JSON.stringify(this.props.currentCurrency)
+    ) {
+      this.setState({ currentCurrency: this.props.currentCurrency });
+    }
   }
 
   toggleCurrencyDropDown = () => {
     this.setState((prevState) => {
-      return { isCurrencyDropOpened: !prevState.isCurrencyDropOpened };
+      return {
+        isCurrencyDropOpened: !prevState.isCurrencyDropOpened,
+      };
     });
   };
 
   changeCurrentCurrency = (currency) => {
-    this.setState({ currentCurrency: currency });
+    this.props.handleCurrencyChange(currency);
   };
 
   handleChangeCurrency = (currency) => {
     this.changeCurrentCurrency(currency);
+
     this.toggleCurrencyDropDown();
   };
 
+  renderCurrencies = (currencies) => {
+    return currencies.map((currency) => {
+      return (
+        <li className={Styles.currency__dropdown__option} key={currency.symbol}>
+          <button onClick={() => this.handleChangeCurrency(currency)}>
+            {" "}
+            <span>{currency.symbol}</span>
+            <br />
+            <span>{currency.label}</span>
+          </button>
+        </li>
+      );
+    });
+  };
+
   render() {
-    const { currentCurrency } = this.state;
+    const { currencies, currentCurrency } = this.props;
     const dropDownStatusClassName = this.state.isCurrencyDropOpened
       ? Styles.currency__dropdownOpened
       : "";
-    let activeCurrencySymbol =
-      currentCurrency === "usd"
-        ? faDollar
-        : currentCurrency === "eur"
-        ? faEur
-        : faJpy;
 
     return (
       <div className={Styles.currency}>
@@ -48,7 +69,7 @@ class CurrencyDropDown extends Component {
           className={Styles.currency__dropdowntoggler}
           onClick={() => this.toggleCurrencyDropDown()}
         >
-          <FontAwesomeIcon icon={activeCurrencySymbol} />{" "}
+          <span>{currentCurrency?.symbol || ""}</span>
           <span>
             {this.state.isCurrencyDropOpened ? (
               <FontAwesomeIcon icon={faArrowUp} />
@@ -61,25 +82,7 @@ class CurrencyDropDown extends Component {
           className={`${Styles.currency__dropdown} ${dropDownStatusClassName}`}
         >
           <ul className={Styles.currency__dropdown__list}>
-            <li className={Styles.currency__dropdown__option}>
-              <button onClick={() => this.handleChangeCurrency("usd")}>
-                {" "}
-                <FontAwesomeIcon icon={faDollar} />
-                <span>USD</span>
-              </button>
-            </li>
-            <li className={Styles.currency__dropdown__option}>
-              <button onClick={() => this.handleChangeCurrency("eur")}>
-                {" "}
-                <FontAwesomeIcon icon={faEur} /> <span>EUR</span>
-              </button>
-            </li>
-            <li className={Styles.currency__dropdown__option}>
-              <button onClick={() => this.handleChangeCurrency("jpy")}>
-                {" "}
-                <FontAwesomeIcon icon={faJpy} /> <span>JPY</span>
-              </button>
-            </li>
+            {this.renderCurrencies(currencies)}
           </ul>
         </div>
       </div>

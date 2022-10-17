@@ -1,5 +1,5 @@
 import { Component } from "react";
-
+import { connect } from "react-redux";
 import circleIcon from "../../../../images/circle-icon.png";
 import "./product.scss";
 class Product extends Component {
@@ -7,33 +7,58 @@ class Product extends Component {
     super(props);
     this.state = {};
   }
+
+  evaluatePrice = () => {
+    const { product } = this.props;
+    if (!product) {
+      return;
+    }
+    if (!this.props.currentCurrency) return;
+
+    const price = product.prices.find(
+      (price) => price.currency.symbol === this.props.currentCurrency.symbol
+    );
+    return price;
+  };
   render() {
     const props = this.props;
+    const { product } = props;
+    const price = this.evaluatePrice();
     return (
       <article
-        className={`product ${props.outOfStock ? "product-outofstock" : ""}`}
+        className={`product ${product.inStock ? "" : "product-outofstock"}`}
       >
-        {props.outOfStock ? (
-          <span className="product__outofstock">
-            {props.outOfStock ? <h3>OUT OF STOCK</h3> : ""}
-          </span>
-        ) : (
+        {product.inStock ? (
           ""
+        ) : (
+          <span className="product__outofstock">
+            {props.inStock ? "" : <h3>OUT OF STOCK</h3>}
+          </span>
         )}
         <div className="product__header">
-          <img src={props.image} alt="clothes" className="product__image" />
+          <img
+            src={`${product.gallery[0]}`}
+            alt="clothes"
+            className="product__image"
+          />
           <button className="product__cart">
             <img src={circleIcon} alt="cart" />
           </button>
         </div>
 
         <div className="product__details">
-          <h4 className="product__title">Apollo Running Short</h4>
-          <p className="product__price">$50.00</p>
+          <h4 className="product__title">{product.name}</h4>
+          <p className="product__price">
+            {price?.currency.symbol || "" + " "} {price?.amount}
+          </p>
         </div>
       </article>
     );
   }
 }
+const mapStateToProps = (state) => {
+  const { currentCurrency } = state.currency;
+  return { currentCurrency };
+};
 
-export default Product;
+export default connect(mapStateToProps)(Product);

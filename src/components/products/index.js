@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import ProductsList from "./components/products-list";
 import "./products.scss";
 class Products extends Component {
@@ -8,12 +9,26 @@ class Products extends Component {
   }
 
   render() {
+    const { products, loadingStatus } = this.props;
+
     return (
       <section className="products">
         <h2 className="products__heading">Category name</h2>
-        <ProductsList />
+        <ProductsList products={products} loadingStatus={loadingStatus} />
       </section>
     );
   }
 }
-export default Products;
+const mapStateToProps = (state) => {
+  const { activeCategory, categories, status } = state.categories;
+
+  const activeCategoryDetails = categories.find(
+    (category) => category.name === activeCategory
+  );
+
+  return {
+    products: activeCategoryDetails?.products || [],
+    loadingStatus: status,
+  };
+};
+export default connect(mapStateToProps)(Products);

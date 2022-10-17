@@ -9,6 +9,10 @@ import {
   loadCategories,
   setActiveCategory,
 } from "../../redux/actions/creators/categories";
+import {
+  loadCurrencies,
+  setCurrentCurrency,
+} from "../../redux/actions/creators/currency";
 
 class Navbar extends Component {
   constructor(props) {
@@ -20,6 +24,7 @@ class Navbar extends Component {
   }
   componentDidMount() {
     this.props.loadCategories();
+    this.props.loadCurrencies();
   }
 
   componentDidUpdate() {
@@ -29,8 +34,13 @@ class Navbar extends Component {
   handleActiveCategoryChange = (category) => {
     this.props.setActiveCategory(category);
   };
+  handleCurrentCurrencyChange = (currency) => {
+    this.props.setCurrentCurrency(currency);
+  };
 
   render() {
+    const { currencies, currentCurrency, currencyLoadingStatus } = this.props;
+    console.log(currencies, currentCurrency, currencyLoadingStatus);
     return (
       <nav className={Styles.navbar}>
         <FilterOptions
@@ -41,7 +51,12 @@ class Navbar extends Component {
         />
         <button className={Styles.navbar__logo}>{shoppingSvg}</button>
         <div className={Styles.navbar__options}>
-          <CurrencyDropDown />
+          <CurrencyDropDown
+            currencies={currencies}
+            loadingStatus={currencyLoadingStatus}
+            currentCurrency={currentCurrency}
+            handleCurrencyChange={this.handleCurrentCurrencyChange}
+          />
           <CartButton />
         </div>
       </nav>
@@ -54,15 +69,26 @@ const mapStateToProps = (state) => {
     (category) => category.name
   );
   const { status: loadingStatus, activeCategory } = state.categories;
+
+  const {
+    currencies,
+    currentCurrency,
+    status: currencyLoadingStatus,
+  } = state.currency;
   return {
     categoriesNames,
     loadingStatus,
     activeCategory,
+    currencies,
+    currentCurrency,
+    currencyLoadingStatus,
   };
 };
 
 const actionCreators = {
   loadCategories,
   setActiveCategory,
+  loadCurrencies,
+  setCurrentCurrency,
 };
 export default connect(mapStateToProps, actionCreators)(Navbar);

@@ -1,10 +1,12 @@
 import request, { gql } from "graphql-request";
+import { baseUri } from "../../../api/consts";
 import {
   SET_ACTIVE_CATEGORY,
   SET_CATEGORIES,
   SET_CATEGORIES_ERROR,
   SET_CATEGORIES_LOADING,
 } from "../types/categories";
+import { SET_CURRENT_CURRENCY } from "../types/currency";
 const fetchCategoriesQuery = gql`
   {
     categories {
@@ -14,6 +16,7 @@ const fetchCategoriesQuery = gql`
         id
         name
         gallery
+        inStock
         prices {
           currency {
             symbol
@@ -31,11 +34,12 @@ export const loadCategories = () => async (dispatch, getState) => {
   });
 
   try {
-    const response = await request(
-      "http://localhost:4000/",
-      fetchCategoriesQuery
-    );
+    const response = await request(baseUri, fetchCategoriesQuery);
     dispatch({ type: SET_CATEGORIES, payload: response.categories });
+    dispatch({
+      type: SET_ACTIVE_CATEGORY,
+      payload: response.categories[0].name,
+    });
   } catch (err) {
     dispatch({
       type: SET_CATEGORIES_ERROR,
