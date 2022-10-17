@@ -7,8 +7,14 @@ class FilterOptions extends Component {
     this.ulRef = createRef();
   }
 
+  componentDidUpdate() {
+    if (this.state.activeCategory !== this.props.activeCategory) {
+      this.setState({ activeCategory: this.props.activeCategory });
+    }
+  }
   changeCategory = (category) => {
     this.setState({ activeCategory: category });
+    this.props.handleCategoryChange(category);
   };
 
   setActiveClass = (event) => {
@@ -19,23 +25,35 @@ class FilterOptions extends Component {
     event.currentTarget.classList.add(Styles.navs__navActive);
   };
 
+  renderOptions = (options) => {
+    return options.map((option) => {
+      const activeClassName =
+        this.state.activeCategory === option ? Styles.navs__navActive : "";
+      return (
+        <li
+          className={`${Styles.navs__nav} ${activeClassName}`}
+          onClick={this.setActiveClass}
+          key={option}
+        >
+          <button onClick={() => this.changeCategory(option)}>{option}</button>
+        </li>
+      );
+    });
+  };
+
   render() {
     return (
-      <ul className={Styles.navs} ref={this.ulRef}>
-        <li
-          className={`${Styles.navs__navActive} ${Styles.navs__nav}`}
-          onClick={this.setActiveClass}
-        >
-          <button onClick={() => this.changeCategory("women")}>WOMEN</button>
-        </li>
-        <li className={Styles.navs__nav} onClick={this.setActiveClass}>
-          <button onClick={() => this.changeCategory("men")}>MEN</button>
-        </li>
-        <li className={Styles.navs__nav} onClick={this.setActiveClass}>
-          <button onClick={() => this.changeCategory("kids")}>KIDS</button>
-        </li>
-      </ul>
+      <>
+        {this.props.loadingStatus === "loading" ? (
+          "Loading"
+        ) : (
+          <ul className={Styles.navs} ref={this.ulRef}>
+            {this.renderOptions(this.props.options)}
+          </ul>
+        )}
+      </>
     );
   }
 }
+
 export default FilterOptions;

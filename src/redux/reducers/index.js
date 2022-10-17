@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
+import categoriesReducer from "./categories";
 
 export default combineReducers({
-  dummyState: (state = "Mohamed", action) => state,
+  categories: categoriesReducer,
 });
