@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import circleIcon from "../../../../images/circle-icon.png";
 import "./product.scss";
 class Product extends Component {
@@ -35,16 +36,18 @@ class Product extends Component {
             {props.inStock ? "" : <h3>OUT OF STOCK</h3>}
           </span>
         )}
-        <div className="product__header">
-          <img
-            src={`${product.gallery[0]}`}
-            alt="clothes"
-            className="product__image"
-          />
-          <button className="product__cart">
-            <img src={circleIcon} alt="cart" />
-          </button>
-        </div>
+        <Link to={`/products/${product.id}`}>
+          <div className="product__header">
+            <img
+              src={`${product.gallery[0]}`}
+              alt="clothes"
+              className="product__image"
+            />
+            <button className="product__cart">
+              <img src={circleIcon} alt="cart" />
+            </button>
+          </div>
+        </Link>
 
         <div className="product__details">
           <h4 className="product__title">{product.name}</h4>

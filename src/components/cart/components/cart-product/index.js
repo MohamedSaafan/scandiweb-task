@@ -1,7 +1,7 @@
 import image from "../../../../images/Image.png";
 import { Component } from "react";
 import ColorChoices from "../../../color-choicer";
-import SizesChoices from "../../../size-choicer";
+import SizesChoices from "../../../option-choicer";
 import "./cart-product.scss";
 class CartProduct extends Component {
   constructor(props) {

@@ -3,12 +3,12 @@ import "./color-choices.scss";
 class ColorChoices extends Component {
   constructor(props) {
     super(props);
-    this.state = { color: "#D3D2D5" };
+    this.state = { color: {} };
     this.ulRef = createRef();
   }
 
   componentDidMount() {
-    this.setState({ color: this.props.currentActiveChoice || "#D3D2D5" });
+    this.setState({ color: this.props.currentActiveChoice });
   }
   changeColor = (color) => {
     this.setState({ color });
@@ -26,15 +26,17 @@ class ColorChoices extends Component {
   renderChoices = (choices) => {
     return choices.map((choice) => {
       const activeClass =
-        choice === this.state.color ? "colorchoices__choiceActive" : "";
+        choice.value === this.state.color.value
+          ? "colorchoices__choiceActive"
+          : "";
       return (
         <li
           className={`colorchoices__choice ${activeClass}`}
           onClick={this.setActiveClass}
-          key={choice}
+          key={choice.value}
         >
           <button onClick={() => this.changeColor(choice)}>
-            <span style={{ backgroundColor: choice }}></span>
+            <span style={{ backgroundColor: choice.value }}></span>
           </button>
         </li>
       );
@@ -42,12 +44,14 @@ class ColorChoices extends Component {
   };
 
   render() {
-    const choices = this.props.choices || ["#D3D2D5", "#000000", "#0F6450"];
-
+    const choices = this.props.choices;
     return (
-      <ul className="colorchoices" ref={this.ulRef}>
-        {this.renderChoices(choices)}
-      </ul>
+      <>
+        <h4 className="productdetails__subtitle">COLOR: </h4>
+        <ul className="colorchoices" ref={this.ulRef}>
+          {this.renderChoices(choices)}
+        </ul>
+      </>
     );
   }
 }
