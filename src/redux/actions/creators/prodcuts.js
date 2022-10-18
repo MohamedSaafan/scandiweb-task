@@ -18,6 +18,7 @@ export const fetchProduct = (id) => async (dispatch) => {
         category
         description
         brand
+        inStock
         prices {
           currency {
             symbol
@@ -51,4 +52,18 @@ export const fetchProduct = (id) => async (dispatch) => {
     console.log(err, "from err");
     dispatch({ type: FETCH_PRODUCT_ERROR, payload: err.message });
   }
+};
+export const fetchCartProducts = (cart) => (dispatch, getState) => {
+  const state = getState();
+  state.cart.forEach(async (cartProduct) => {
+    let isFoundInProducts = false;
+
+    state.products.products.forEach((product) => {
+      if (cartProduct.id === product.id) isFoundInProducts = true;
+    });
+
+    if (!isFoundInProducts) {
+      dispatch(fetchProduct(cartProduct.id));
+    }
+  });
 };

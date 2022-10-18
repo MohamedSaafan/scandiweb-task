@@ -1,6 +1,7 @@
 .sizeschoices {
   display: flex;
   list-style-type: none;
+  margin-bottom: 1rem;
   &__choice {
     button {
       border: 1px solid #000;

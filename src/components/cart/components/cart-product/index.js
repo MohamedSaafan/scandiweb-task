@@ -26,11 +26,11 @@ class CartProduct extends Component {
           <p className="cart__product__price">$50.00</p>
           <div className="cart__product__sizes">
             <h4 className="cart__product__subtitle">SIZE:</h4>
-            <SizesChoices handleSizeChange={this.handleSizeChange} />
+            {/* <SizesChoices handleSizeChange={this.handleSizeChange} /> */}
           </div>
           <div className="cart__product__sizes">
             <h4 className="cart__product__subtitle">COLOR:</h4>
-            <ColorChoices handleColorChange={this.handleColorChange} />
+            {/* <ColorChoices handleColorChange={this.handleColorChange} /> */}
           </div>
         </div>
         <div className="cart__product__right">

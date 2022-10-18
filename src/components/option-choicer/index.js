@@ -8,11 +8,11 @@ class SizesChoices extends Component {
   }
 
   componentDidMount() {
-    this.setState({ option: this.props.currentActiveOption });
+    this.setState({ option: this.props.options[0] });
   }
   changeOption = (option) => {
     this.setState({ option });
-    this.props.handleSizeChange(option);
+    // this.props.handleSizeChange(option);
   };
 
   setActiveClass = (event) => {

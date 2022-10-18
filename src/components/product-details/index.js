@@ -1,10 +1,12 @@
 import { Component } from "react";
 import ColorChoices from "../color-choicer";
-import SizesChoices from "../option-choicer";
 import { fetchProduct } from "../../redux/actions/creators/prodcuts";
+import { addToCart } from "../../redux/actions/creators/cart";
 import "./product-details.scss";
 import { connect } from "react-redux";
 import OptionChoicer from "../option-choicer";
+import { Link } from "react-router-dom";
+
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +49,11 @@ class ProductDetails extends Component {
     console.log(color);
   };
 
+  handleAddToCartClick = (productId) => {
+    this.props.addToCart(productId);
+    this.props.history.push("/cart");
+  };
+
   renderOptions = (attributes) => {
     return attributes.map((attribute) => {
       if (attribute.type === "swatch")
@@ -71,18 +78,29 @@ class ProductDetails extends Component {
     });
   };
   render() {
-    const { products, status } = this.props;
-    console.log(products);
-    console.log(products, status);
-    products.forEach((product) => {
-      console.log(product.id, this.props.match.params.id);
-    });
-    const product = products.find(
-      (product) => product.id === this.props.match.params.id
-    );
-    console.log(product, "from product");
+    const { products, status, currentCurrency, cartProducts } = this.props;
 
-    if (status === "loading" || !product) return <h1> Loading....</h1>;
+    const product = products.find((product) => {
+      if (!product) return false;
+      return product.id === this.props.match.params.id;
+    });
+
+    if (!product) return <h1>product not found</h1>;
+
+    if (status === "loading" || !currentCurrency) return <h1> Loading....</h1>;
+
+    let isInCart;
+    cartProducts.forEach((cartProduct) => {
+      if (cartProduct.id === product.id) isInCart = true;
+    });
+
+    console.log(isInCart, "from is in cart");
+
+    const productPrice =
+      product &&
+      product.prices.find(
+        (price) => price.currency.symbol === currentCurrency.symbol
+      );
 
     return (
       <section className="productdetails">
@@ -97,8 +115,8 @@ class ProductDetails extends Component {
         </div>
         <div className="productdetails__options">
           <div>
-            <h3 className="productdetails__heading">Apollo</h3>
-            <h4 className="productdetails__title">Running Short</h4>
+            <h3 className="productdetails__heading">{product.brand}</h3>
+            <h4 className="productdetails__title">{product.name}</h4>
           </div>
           <div className="productdetails__sizes">
             {this.renderOptions(product.attributes)}
@@ -106,14 +124,37 @@ class ProductDetails extends Component {
           <div className="productdetails__colors"></div>
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
-            <p>$50.00</p>{" "}
+            <p>
+              {productPrice.currency.symbol} {productPrice.amount}
+            </p>{" "}
           </div>
-          <button className="productdetails__addbtn">ADD TO CART</button>
-          <p className="productdetails__description">
-            Find stunning women's cocktail dresses and party dresses. Stand out
-            in lace and metallic cocktail dresses and party dresses from all
-            your favorite brands.
-          </p>
+          {product.inStock ? (
+            isInCart ? (
+              <Link to="/cart" className="productdetails__addbtn">
+                Item In Cart
+              </Link>
+            ) : (
+              <button
+                className="productdetails__addbtn"
+                onClick={() => this.handleAddToCartClick(product.id)}
+              >
+                ADD TO CART
+              </button>
+            )
+          ) : (
+            <button
+              className="productdetails__addbtn productdetails__addbtnDisabled"
+              disabled
+            >
+              ADD TO CART
+            </button>
+          )}
+          <div
+            className="productdetails__description"
+            dangerouslySetInnerHTML={{
+              __html: product.description,
+            }}
+          ></div>
         </div>
       </section>
     );
@@ -121,12 +162,17 @@ class ProductDetails extends Component {
 }
 const mapStateToProps = (state) => {
   const { products, status } = state.products;
+  const { currentCurrency } = state.currency;
+  const { cart } = state;
   return {
     products,
     status,
+    currentCurrency,
+    cartProducts: cart,
   };
 };
 const actionCreators = {
   fetchProduct,
+  addToCart,
 };
 export default connect(mapStateToProps, actionCreators)(ProductDetails);
