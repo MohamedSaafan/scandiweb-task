@@ -1,0 +1,21 @@
+.cartModal {
+  position: absolute;
+  z-index: 5;
+  right: 2rem;
+  top: 5px;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.cart-overlay {
+  width: 100vw;
+  height: 100vw;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  position: absolute;
+  background-color: rgba(57, 55, 72, 0.22);
+}

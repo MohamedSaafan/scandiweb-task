@@ -6,6 +6,8 @@ import "./product-details.scss";
 import { connect } from "react-redux";
 import OptionChoicer from "../option-choicer";
 import { Link } from "react-router-dom";
+import { getPrice } from "../../helpers/getPrice";
+import Options from "../options";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -16,13 +18,6 @@ class ProductDetails extends Component {
     this.props.fetchProduct(this.props.match.params.id);
   }
   componentDidUpdate() {}
-
-  handleColorChange = (color) => {
-    console.log(color, "this is the color from the parent component");
-  };
-  handleSizeChange = (size) => {
-    console.log(size, "from size in the parent element");
-  };
 
   handleSmallImageClick = (index) => {
     this.setState({ mainImageIndex: index });
@@ -45,38 +40,11 @@ class ProductDetails extends Component {
     ));
   };
 
-  handleColorChange = (color) => {
-    console.log(color);
-  };
-
   handleAddToCartClick = (productId) => {
     this.props.addToCart(productId);
     this.props.history.push("/cart");
   };
 
-  renderOptions = (attributes) => {
-    return attributes.map((attribute) => {
-      if (attribute.type === "swatch")
-        return (
-          <ColorChoices
-            choices={attribute.items}
-            id={attribute.id}
-            currentActiveChoice={attribute.items[0]}
-            handleColorChange={this.handleColorChange}
-            key={attribute.id}
-          />
-        );
-
-      return (
-        <OptionChoicer
-          options={attribute.items}
-          title={attribute.name}
-          id={attribute.id}
-          key={attribute.id}
-        />
-      );
-    });
-  };
   render() {
     const { products, status, currentCurrency, cartProducts } = this.props;
 
@@ -96,11 +64,7 @@ class ProductDetails extends Component {
 
     console.log(isInCart, "from is in cart");
 
-    const productPrice =
-      product &&
-      product.prices.find(
-        (price) => price.currency.symbol === currentCurrency.symbol
-      );
+    const productPrice = getPrice(product, currentCurrency);
 
     return (
       <section className="productdetails">
@@ -118,10 +82,7 @@ class ProductDetails extends Component {
             <h3 className="productdetails__heading">{product.brand}</h3>
             <h4 className="productdetails__title">{product.name}</h4>
           </div>
-          <div className="productdetails__sizes">
-            {this.renderOptions(product.attributes)}
-          </div>
-          <div className="productdetails__colors"></div>
+          <Options attributes={product.attributes} />
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
             <p>

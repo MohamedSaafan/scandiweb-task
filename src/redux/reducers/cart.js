@@ -1,8 +1,10 @@
+import { filter } from "fontawesome";
 import {
   ADD_ITEM_TO_CART,
   DECREASE_QUANTITY_OF_PRODUCT,
   INCREASE_QUANTITY_OF_PRODUCT,
   REMOVE_ITEM_FROM_CART,
+  SET_CART_AMOUNT,
 } from "../actions/types/cart";
 
 const initialState = [];
@@ -12,26 +14,16 @@ const cartReducer = (state = initialState, action) => {
       return [...state, { id: action.payload, quantity: 1 }];
 
     case REMOVE_ITEM_FROM_CART:
-      return state.filter((product) => product.id !== action.payload);
+      return [...state.filter((product) => product.id !== action.payload)];
 
-    case INCREASE_QUANTITY_OF_PRODUCT:
-      return state.map((product) => {
-        const id = action.payload;
-        if (product.id === id) product.quantity++;
-        return product;
-      });
-
-    case DECREASE_QUANTITY_OF_PRODUCT:
-      let isLastElement = false;
-      const products = state.map((product) => {
-        const id = action.payload;
-        if (product.id === id) product.quantity--;
-        if (product.quantity === 0) isLastElement = true;
-        return product;
-      });
-      if (isLastElement)
-        return products.filter((product) => product.id !== action.payload);
-      return products;
+    case SET_CART_AMOUNT:
+      const product = state.find(
+        (product) => product.id === action.payload.productId
+      );
+      return [
+        ...state.filter((product) => product.id !== action.payload.productId),
+        { ...product, quantity: action.payload.newAmount },
+      ];
 
     default:
       return state;

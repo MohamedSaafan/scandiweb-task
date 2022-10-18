@@ -1,22 +1,50 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
+import { connect } from "react-redux";
+import { countCartProducts } from "../../../../helpers/cart";
+import CartOverlay from "../../../cart-overlay";
+import Modal from "../../../modal";
 import Styles from "./cart-button.module.scss";
 class CartButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isModalOpened: false };
   }
-  F;
+  openModal = () => {
+    this.setState({ isModalOpened: true });
+  };
+  closeModal = () => {
+    this.setState({ isModalOpened: false });
+  };
+  toggleModal = () => {
+    this.setState((state) => {
+      return { isModalOpened: !state.isModalOpened };
+    });
+  };
+
+  handleRootModalClick = (e) => {
+    e.stopPropagation();
+  };
 
   render() {
     return (
       <div className={Styles.cart}>
-        <button>
+        <button className={Styles.cart__button} onClick={this.toggleModal}>
+          <div className={Styles.cart__button__count}>
+            {this.props.numOfProducts}
+          </div>
           <FontAwesomeIcon icon={faCartShopping} />
         </button>
+
+        {this.state.isModalOpened && <CartOverlay />}
       </div>
     );
   }
 }
-export default CartButton;
+
+const mapStateToProps = (state) => {
+  const numOfProducts = countCartProducts(state.cart);
+  return { numOfProducts };
+};
+export default connect(mapStateToProps)(CartButton);

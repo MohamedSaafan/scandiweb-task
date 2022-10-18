@@ -1,0 +1,27 @@
+.invoice {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+
+  p {
+    margin-bottom: 0.5rem;
+    h3 {
+      font-weight: normal;
+      width: 7rem;
+      display: inline-block;
+    }
+    span {
+      font-weight: bold;
+      margin-left: 0.25rem;
+    }
+  }
+  &__orderbtn {
+    width: 14rem;
+    margin-top: 1rem;
+    background-color: var(--active-color);
+    border: none;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}
