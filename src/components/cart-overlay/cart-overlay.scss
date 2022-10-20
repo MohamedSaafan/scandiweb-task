@@ -6,6 +6,14 @@
   background-color: #fff;
   overflow: hidden;
   padding: 2rem;
+
+  &__heading {
+    margin-bottom: 1.5rem;
+
+    span {
+      font-weight: normal;
+    }
+  }
 }
 
 .cart-overlay {

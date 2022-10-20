@@ -8,7 +8,11 @@ class CartProductsList extends Component {
 
   renderProducts = (products) => {
     return products.map((product) => (
-      <CartProduct product={product} key={product.product.id} />
+      <CartProduct
+        product={product}
+        key={product.product.id}
+        isMini={this.props.isMini ? true : false}
+      />
     ));
   };
   render() {

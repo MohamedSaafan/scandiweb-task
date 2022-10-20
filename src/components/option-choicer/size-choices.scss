@@ -2,6 +2,9 @@
   display: flex;
   list-style-type: none;
   margin-bottom: 1rem;
+  &-mini {
+    margin-bottom: 0.5rem;
+  }
   &__choice {
     button {
       border: 1px solid #000;
@@ -17,5 +20,8 @@
         color: #fff;
       }
     }
+  }
+  &-mini {
+    margin-bottom: 0.5rem;
   }
 }

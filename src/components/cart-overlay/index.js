@@ -1,9 +1,10 @@
 import { Component, createRef } from "react";
 import { connect } from "react-redux";
-import { extractCartProductsDetails } from "../../helpers/cart";
+import { countCartProducts, getCartProducts } from "../../helpers/cart";
 import CartProductsList from "../cart/components/cart-products-list";
 import { fetchCartProducts } from "../../redux/actions/creators/prodcuts";
 import "./cart-overlay.scss";
+import CartOverLayFooter from "../cart-overlay-footer";
 class CartOverlay extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,8 @@ class CartOverlay extends Component {
   };
   render() {
     const { products, cart, currentCurrency } = this.props;
-    const cartProducts = extractCartProductsDetails(products, cart);
+    const cartProducts = getCartProducts(products, cart);
+    const numberOfItems = countCartProducts(cart);
     if (!products || products.length === 0) {
       return (
         <div
@@ -41,7 +43,14 @@ class CartOverlay extends Component {
         onClick={this.handleRootModalClick}
       >
         <div className="cartModal">
-          <CartProductsList products={cartProducts} />
+          <h3 className="cartModal__heading">
+            My Bag, <span>{numberOfItems} items</span>
+          </h3>
+          <CartProductsList products={cartProducts} isMini={true} />
+          <CartOverLayFooter
+            cartProducts={cartProducts}
+            currentCurrency={currentCurrency}
+          />
         </div>
       </div>
     );
@@ -51,6 +60,7 @@ const mapStateToProps = (state) => {
   const { products } = state.products;
   const { cart } = state;
   const { currentCurrency } = state.currency;
+
   return {
     cart,
     products,

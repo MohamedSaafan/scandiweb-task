@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { extractCartProductsDetails } from "../../helpers/cart";
+import { getCartProducts } from "../../helpers/cart";
 import { fetchCartProducts } from "../../redux/actions/creators/prodcuts";
 import CartProductsList from "./components/cart-products-list";
 import TotalInvoiceCart from "./components/total-invoice-cart";
@@ -12,7 +12,7 @@ class Cart extends Component {
 
   render() {
     const { products, cart, currentCurrency } = this.props;
-    const cartProducts = extractCartProductsDetails(products, cart);
+    const cartProducts = getCartProducts(products, cart);
     if (!products || products.length === 0) {
       return <h1>Cart is Empty</h1>;
     }

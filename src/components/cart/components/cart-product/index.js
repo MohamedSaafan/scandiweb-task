@@ -62,7 +62,7 @@ class CartProduct extends Component {
           <p className="cart__product__price">
             {price.currency.symbol} {price.amount}
           </p>
-          <Options attributes={product.attributes} />
+          <Options attributes={product.attributes} isMini={this.props.isMini} />
         </div>
         <div className="cart__product__right">
           <div className="cart__product__btns">

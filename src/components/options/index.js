@@ -22,6 +22,7 @@ class Options extends Component {
             currentActiveChoice={attribute.items[0]}
             handleColorChange={this.handleColorChange}
             key={attribute.id}
+            isMini={this.props.isMini}
           />
         );
 
@@ -31,6 +32,7 @@ class Options extends Component {
           title={attribute.name}
           id={attribute.id}
           key={attribute.id}
+          isMini={this.props.isMini}
         />
       );
     });

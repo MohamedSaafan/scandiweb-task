@@ -23,15 +23,18 @@ class ColorChoices extends Component {
     event.currentTarget.classList.add("colorchoices__choiceActive");
   };
 
-  renderChoices = (choices) => {
+  renderChoices = (choices, isMini) => {
     return choices.map((choice) => {
       const activeClass =
         choice.value === this.state.color.value
           ? "colorchoices__choiceActive"
           : "";
+      const className = isMini
+        ? "colorchoices__choice-mini"
+        : "colorchoices__choice";
       return (
         <li
-          className={`colorchoices__choice ${activeClass}`}
+          className={` ${activeClass}`}
           onClick={this.setActiveClass}
           key={choice.value}
         >
@@ -45,6 +48,7 @@ class ColorChoices extends Component {
 
   render() {
     const choices = this.props.choices;
+    const { isMini } = this.props;
     return (
       <>
         <h4 className="productdetails__subtitle">COLOR: </h4>
