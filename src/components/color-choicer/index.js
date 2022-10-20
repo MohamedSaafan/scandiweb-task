@@ -29,12 +29,10 @@ class ColorChoices extends Component {
         choice.value === this.state.color.value
           ? "colorchoices__choiceActive"
           : "";
-      const className = isMini
-        ? "colorchoices__choice-mini"
-        : "colorchoices__choice";
+
       return (
         <li
-          className={` ${activeClass}`}
+          className={`colorchoices__choice ${activeClass}`}
           onClick={this.setActiveClass}
           key={choice.value}
         >

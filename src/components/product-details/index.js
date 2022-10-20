@@ -82,7 +82,7 @@ class ProductDetails extends Component {
             <h3 className="productdetails__heading">{product.brand}</h3>
             <h4 className="productdetails__title">{product.name}</h4>
           </div>
-          <Options attributes={product.attributes} />
+          <Options attributes={product.attributes} productId={product.id} />
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
             <p>
