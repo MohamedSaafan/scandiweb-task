@@ -7,8 +7,6 @@ import {
 import { baseUri } from "../../../api/consts";
 
 export const fetchProduct = (id) => async (dispatch) => {
-  console.log(id, "from id");
-
   const fetchProductQuery = gql`
     query getProduct($id: String!) {
       product(id: $id) {
@@ -46,7 +44,6 @@ export const fetchProduct = (id) => async (dispatch) => {
       document: fetchProductQuery,
       variables: { id },
     });
-    console.log(response, "from response");
     dispatch({ type: FETCH_PRODUCT, payload: response.product });
   } catch (err) {
     console.log(err, "from err");

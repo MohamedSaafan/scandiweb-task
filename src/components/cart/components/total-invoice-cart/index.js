@@ -19,16 +19,16 @@ class TotalInvoiceCart extends Component {
 
     return (
       <div className="invoice">
-        <p className="invoice__taxes">
+        <div className="invoice__taxes">
           <h3>Tax {taxRatio}%:</h3> <span>{tax} </span>
-        </p>
+        </div>
 
-        <p className="invoice__quantity">
+        <div className="invoice__quantity">
           <h3>Quantity:</h3> <span>{countCartProducts(cart)}</span>
-        </p>
-        <p className="invoice__price">
+        </div>
+        <div className="invoice__price">
           <h3>Price:</h3> <span>{totalPrice}</span>
-        </p>
+        </div>
         <button className="invoice__orderbtn">order</button>
       </div>
     );

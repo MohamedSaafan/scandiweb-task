@@ -14,7 +14,7 @@ class ProductsList extends Component {
   };
   render() {
     const { loadingStatus, products } = this.props;
-    console.log(products, "from products");
+
     if (loadingStatus === "loading") {
       return <h2>Loading</h2>;
     }

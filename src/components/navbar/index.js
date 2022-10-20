@@ -27,9 +27,7 @@ class Navbar extends Component {
     this.props.loadCurrencies();
   }
 
-  componentDidUpdate() {
-    console.log(this.props.categoriesNames, "from categories");
-  }
+  componentDidUpdate() {}
 
   handleActiveCategoryChange = (category) => {
     this.props.setActiveCategory(category);
@@ -40,7 +38,7 @@ class Navbar extends Component {
 
   render() {
     const { currencies, currentCurrency, currencyLoadingStatus } = this.props;
-    console.log(currencies, currentCurrency, currencyLoadingStatus);
+
     return (
       <nav className={Styles.navbar}>
         <FilterOptions

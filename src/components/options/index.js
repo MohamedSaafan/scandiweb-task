@@ -3,15 +3,9 @@ import ColorChoices from "../color-choicer";
 import OptionChoicer from "../option-choicer";
 
 class Options extends Component {
-  handleColorChange = (color) => {
-    console.log(color, "this is the color from the parent component");
-  };
-  handleSizeChange = (size) => {
-    console.log(size, "from size in the parent element");
-  };
-  handleColorChange = (color) => {
-    console.log(color);
-  };
+  handleColorChange = (color) => {};
+  handleSizeChange = (size) => {};
+  handleColorChange = (color) => {};
   renderOptions = (attributes, productId) => {
     return attributes.map((attribute) => {
       if (attribute.type === "swatch")

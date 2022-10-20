@@ -62,8 +62,6 @@ class ProductDetails extends Component {
       if (cartProduct.id === product.id) isInCart = true;
     });
 
-    console.log(isInCart, "from is in cart");
-
     const productPrice = getPrice(product, currentCurrency);
 
     return (

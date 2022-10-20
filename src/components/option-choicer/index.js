@@ -32,8 +32,6 @@ class SizesChoices extends Component {
     event.currentTarget.classList.add("sizeschoices__choiceActive");
   };
   renderOptions = (options, optionsId, productId) => {
-    console.log(options, "from options");
-
     if (!options) return <></>;
     return options.map((option) => {
       const activeClass =
