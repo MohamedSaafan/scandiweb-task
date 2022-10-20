@@ -2,6 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import circleIcon from "../../../../images/circle-icon.png";
+import { addToCart } from "../../../../redux/actions/creators/cart";
 import "./product.scss";
 class Product extends Component {
   constructor(props) {
@@ -21,10 +22,23 @@ class Product extends Component {
     );
     return price;
   };
+
+  inCart = (productId, cart) => {
+    const item = cart.find((item) => item.id === productId);
+    return item ? true : false;
+  };
+
+  handleAddToCartClick = (e, productId) => {
+    // e.stopPropagation();
+    e.preventDefault();
+    this.props.addToCart(productId);
+  };
   render() {
     const props = this.props;
-    const { product } = props;
+    const { product, cart } = props;
     const price = this.evaluatePrice();
+    const inCart = this.inCart(product.id, cart);
+
     return (
       <article
         className={`product ${product.inStock ? "" : "product-outofstock"}`}
@@ -43,9 +57,16 @@ class Product extends Component {
               alt="clothes"
               className="product__image"
             />
-            <button className="product__cart">
-              <img src={circleIcon} alt="cart" />
-            </button>
+            {inCart ? (
+              <>item in cart</>
+            ) : (
+              <button
+                className="product__cart"
+                onClick={(e) => this.handleAddToCartClick(e, product.id)}
+              >
+                <img src={circleIcon} alt="cart" />
+              </button>
+            )}
           </div>
         </Link>
 
@@ -61,7 +82,11 @@ class Product extends Component {
 }
 const mapStateToProps = (state) => {
   const { currentCurrency } = state.currency;
-  return { currentCurrency };
+  const { cart } = state;
+  return { currentCurrency, cart };
+};
+const actionCreators = {
+  addToCart,
 };
 
-export default connect(mapStateToProps)(Product);
+export default connect(mapStateToProps, actionCreators)(Product);

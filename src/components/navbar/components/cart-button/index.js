@@ -37,7 +37,9 @@ class CartButton extends Component {
           <FontAwesomeIcon icon={faCartShopping} />
         </button>
 
-        {this.state.isModalOpened && <CartOverlay />}
+        {this.state.isModalOpened && (
+          <CartOverlay closeModal={this.closeModal} />
+        )}
       </div>
     );
   }
