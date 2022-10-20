@@ -12,7 +12,7 @@ class Options extends Component {
   handleColorChange = (color) => {
     console.log(color);
   };
-  renderOptions = (attributes) => {
+  renderOptions = (attributes, productId) => {
     return attributes.map((attribute) => {
       if (attribute.type === "swatch")
         return (
@@ -23,6 +23,7 @@ class Options extends Component {
             handleColorChange={this.handleColorChange}
             key={attribute.id}
             isMini={this.props.isMini}
+            productId={productId}
           />
         );
 
@@ -33,13 +34,15 @@ class Options extends Component {
           id={attribute.id}
           key={attribute.id}
           isMini={this.props.isMini}
+          productId={productId}
         />
       );
     });
   };
   render() {
-    const { attributes } = this.props;
-    return <div>{this.renderOptions(attributes)}</div>;
+    const { attributes, productId } = this.props;
+
+    return <div>{this.renderOptions(attributes, productId)}</div>;
   }
 }
 

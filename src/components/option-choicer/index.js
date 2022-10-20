@@ -1,4 +1,8 @@
 import { Component, createRef } from "react";
+import {
+  getLocalStorageOption,
+  setLocalStorageOption,
+} from "../../helpers/options-local-storage";
 import "./size-choices.scss";
 class SizesChoices extends Component {
   constructor(props) {
@@ -8,11 +12,16 @@ class SizesChoices extends Component {
   }
 
   componentDidMount() {
-    this.setState({ option: this.props.options[0] });
+    const storedOptionValue = getLocalStorageOption(
+      this.props.id,
+      this.props.productId
+    );
+
+    this.setState({ option: storedOptionValue || this.props.options[0] });
   }
-  changeOption = (option) => {
+  changeOption = (option, optionsId, productId) => {
     this.setState({ option });
-    // this.props.handleSizeChange(option);
+    setLocalStorageOption(optionsId, productId, option);
   };
 
   setActiveClass = (event) => {
@@ -22,7 +31,7 @@ class SizesChoices extends Component {
     }
     event.currentTarget.classList.add("sizeschoices__choiceActive");
   };
-  renderOptions = (options) => {
+  renderOptions = (options, optionsId, productId) => {
     console.log(options, "from options");
 
     if (!options) return <></>;
@@ -39,7 +48,9 @@ class SizesChoices extends Component {
           onClick={this.setActiveClass}
           key={option.id}
         >
-          <button onClick={() => this.changeOption(option)}>
+          <button
+            onClick={() => this.changeOption(option, optionsId, productId)}
+          >
             {option.displayValue}
           </button>
         </li>
@@ -53,6 +64,7 @@ class SizesChoices extends Component {
   };
   render() {
     const options = this.props.options;
+    const { id, productId } = this.props;
     if (!options) return <></>;
 
     return (
@@ -69,7 +81,7 @@ class SizesChoices extends Component {
           className={"sizeschoices " + this.getMiniClass("sizeschoices")}
           ref={this.ulRef}
         >
-          {this.renderOptions(options)}
+          {this.renderOptions(options, id, productId)}
         </ul>
       </>
     );

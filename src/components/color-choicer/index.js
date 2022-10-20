@@ -1,4 +1,8 @@
 import { Component, createRef } from "react";
+import {
+  getLocalStorageOption,
+  setLocalStorageOption,
+} from "../../helpers/options-local-storage";
 import "./color-choices.scss";
 class ColorChoices extends Component {
   constructor(props) {
@@ -8,10 +12,17 @@ class ColorChoices extends Component {
   }
 
   componentDidMount() {
-    this.setState({ color: this.props.currentActiveChoice });
+    const storedOptionValue = getLocalStorageOption(
+      this.props.id,
+      this.props.productId
+    );
+    this.setState({
+      color: storedOptionValue || this.props.currentActiveChoice,
+    });
   }
-  changeColor = (color) => {
+  changeColor = (color, optionsId, productId) => {
     this.setState({ color });
+    setLocalStorageOption(optionsId, productId, color);
     this.props.handleColorChange(color);
   };
 
@@ -36,7 +47,11 @@ class ColorChoices extends Component {
           onClick={this.setActiveClass}
           key={choice.value}
         >
-          <button onClick={() => this.changeColor(choice)}>
+          <button
+            onClick={() =>
+              this.changeColor(choice, this.props.id, this.props.productId)
+            }
+          >
             <span style={{ backgroundColor: choice.value }}></span>
           </button>
         </li>
