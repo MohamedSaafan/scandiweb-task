@@ -1,11 +1,11 @@
 # Small E-Commerce Application
 
-## Deployments
+## Table of content
 
-This project is deployed in vercel and available to preview here [click to preview the output](https://scandiweb-task-self.vercel.app/products).
-It's backend is a simple graphql server hosted in heroku at that [link](https://sleepy-waters-11578.herokuapp.com/)
-
-**Note** if you want to run the application **_locally_** then you have to clone [this](https://github.com/scandiweb/junior-react-endpoint) repo and run it on your **local** machine before you run the project.
+- [Features](#features)
+- [Preview screen shots](#preview-screen-shots)
+- [Live preview](#live-preview)
+- [Running locally](#running-locally)
 
 ## Features
 
@@ -21,9 +21,25 @@ It's backend is a simple graphql server hosted in heroku at that [link](https://
 - displaying the status (whether it's in stock or not) of each product in the product-list page
 - item's on the cart won't be added to the cart again , rather it will display a piece of info indicating it's **_already_** in the cart
 
-## Preview schreen shots.
+## Preview screen shots
 
 ![products preview](/docs/products.png "products listing page")
 ![currency selector preview](/docs/currency.png "global currency selector dropdown")
 ![cart-overlay preview](/docs/cart-overlay.png "mini cart overlay component")
 ![cart preview](/docs/cart.png " cart listing page")
+
+## Live Preview
+
+This project is deployed in vercel and available to preview here [click to preview the output](https://scandiweb-task-self.vercel.app/products).
+It's backend is a simple graphql server hosted in heroku at that [link](https://sleepy-waters-11578.herokuapp.com/)
+
+## Running Locally
+
+- Install the dependencies using `npm install`
+- clone [this](https://github.com/scandiweb/junior-react-endpoint) repo and run it on your **local** machine before you run the project.
+  - **_ to run this Graphql project follow these steps _**
+  - make sure that you have `yarn` installed in your computer
+  - run the command `yarn ` to install the dependencies
+  - run the command `yarn build` to build the project
+  - run the command ` yarn start` to start the graphql server
+- then run ` npm start` to run the project
