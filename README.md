@@ -20,3 +20,10 @@ It's backend is a simple graphql server hosted in heroku at that [link](https://
 - having a small cart layout component.
 - displaying the status (whether it's in stock or not) of each product in the product-list page
 - item's on the cart won't be added to the cart again , rather it will display a piece of info indicating it's **_already_** in the cart
+
+## Preview schreen shots.
+
+![products preview](/docs/products.png "products listing page")
+![currency selector preview](/docs/currency.png "global currency selector dropdown")
+![cart-overlay preview](/docs/cart-overlay.png "mini cart overlay component")
+![cart preview](/docs/cart.png " cart listing page")
