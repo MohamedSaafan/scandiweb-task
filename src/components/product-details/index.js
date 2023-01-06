@@ -8,7 +8,8 @@ import OptionChoicer from "../option-choicer";
 import { Link } from "react-router-dom";
 import { getPrice } from "../../helpers/getPrice";
 import Options from "../options";
-
+import parse from "html-react-parser";
+import * as sanitizeHtml from "sanitize-html";
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
@@ -108,12 +109,9 @@ class ProductDetails extends Component {
               ADD TO CART
             </button>
           )}
-          <div
-            className="productdetails__description"
-            dangerouslySetInnerHTML={{
-              __html: product.description,
-            }}
-          ></div>
+          <div className="productdetails__description">
+            {parse(sanitizeHtml(product.description))}
+          </div>
         </div>
       </section>
     );
