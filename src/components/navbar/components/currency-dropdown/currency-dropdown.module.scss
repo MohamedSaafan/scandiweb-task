@@ -1,5 +1,13 @@
 .currency {
   position: relative;
+  &Container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+    top: 0;
+    right: 0;
+  }
   &__dropdowntoggler {
     border: none;
     background-color: #fff;

@@ -16,23 +16,12 @@ class CurrencyDropDown extends Component {
     this.state = { isCurrencyDropOpened: false };
   }
   componentDidMount() {
-    // setTimeout(() => {
-    //   const previouslySelectedCurrency = loadCurrencyFromLocalStorage();
-    //   console.log(previouslySelectedCurrency, "from previously selected");
-    //   if (previouslySelectedCurrency) {
-    //     this.changeCurrentCurrency(previouslySelectedCurrency);
-    //   }
-    // }, 1000);
+    document.addEventListener("click", () => {
+      this.setState({ isCurrencyDropOpened: false });
+    });
   }
 
-  componentDidUpdate() {
-    // if (
-    //   JSON.stringify(this.props.currentCurrency) !==
-    //   JSON.stringify(this.props.currentCurrency)
-    // ) {
-    //   this.setState({ currentCurrency: this.props.currentCurrency });
-    // }
-  }
+  componentDidUpdate() {}
 
   toggleCurrencyDropDown = () => {
     this.setState((prevState) => {
@@ -67,6 +56,9 @@ class CurrencyDropDown extends Component {
       );
     });
   };
+  handleParentClick = (e) => {
+    e.stopPropagation();
+  };
 
   render() {
     const { currencies, currentCurrency } = this.props;
@@ -75,7 +67,7 @@ class CurrencyDropDown extends Component {
       : "";
 
     return (
-      <div className={Styles.currency}>
+      <div className={Styles.currency} onClick={this.handleParentClick}>
         <button
           className={Styles.currency__dropdowntoggler}
           onClick={() => this.toggleCurrencyDropDown()}
