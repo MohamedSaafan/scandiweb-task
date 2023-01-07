@@ -1,15 +1,6 @@
-import {
-  faArrowDown,
-  faArrowUp,
-  faDollar,
-  faEur,
-  faJpy,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
-import { loadCurrencyFromLocalStorage } from "../../../../helpers/currencies-localStorage";
 import Styles from "./currency-dropdown.module.scss";
-
+import arrowDown from "../../../../images/arrow-down.svg";
 class CurrencyDropDown extends Component {
   constructor(props) {
     super(props);
@@ -72,12 +63,22 @@ class CurrencyDropDown extends Component {
           className={Styles.currency__dropdowntoggler}
           onClick={() => this.toggleCurrencyDropDown()}
         >
-          <span>{currentCurrency?.symbol || ""}</span>
-          <span>
+          <span className={Styles.currency__symbol}>
+            {currentCurrency?.symbol || ""}
+          </span>
+          <span className={Styles.currency__arrow}>
             {this.state.isCurrencyDropOpened ? (
-              <FontAwesomeIcon icon={faArrowUp} />
+              <img
+                src={arrowDown}
+                alt="arrow UP"
+                className={Styles.currency__arrowUp}
+              />
             ) : (
-              <FontAwesomeIcon icon={faArrowDown} />
+              <img
+                src={arrowDown}
+                alt="arrow down"
+                className={Styles.currency__arrowDown}
+              />
             )}
           </span>
         </button>

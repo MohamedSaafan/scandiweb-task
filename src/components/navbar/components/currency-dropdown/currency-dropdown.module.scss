@@ -1,12 +1,22 @@
 .currency {
   position: relative;
-  &Container {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: red;
-    top: 0;
-    right: 0;
+
+  &__symbol {
+    width: 12px;
+    height: 29px;
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+  }
+  &__arrow {
+    img {
+      margin-bottom: 2px;
+    }
+    &Up {
+      transform: rotate(180deg);
+    }
   }
   &__dropdowntoggler {
     border: none;
@@ -14,10 +24,12 @@
     margin-right: 1.5rem;
     font-size: 1.5rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   span {
-    font-size: 1rem;
     margin-left: 0.25rem;
   }
 
