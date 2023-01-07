@@ -95,7 +95,7 @@ class ProductDetails extends Component {
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
             <p>
-              {productPrice.currency.symbol} {productPrice.amount}
+              {productPrice.currency.symbol} {productPrice.amount.toFixed(2)}
             </p>{" "}
           </div>
           {product.inStock ? (

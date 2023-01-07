@@ -62,7 +62,7 @@ class CartProduct extends Component {
           <h2 className="cart__product__heading">{product.brand}</h2>
           <h3 className="cart__product__title">{product.name}</h3>
           <p className="cart__product__price">
-            {price.currency.symbol} {price.amount}
+            {price.currency.symbol} {price.amount.toFixed(2)}
           </p>
           <Options
             attributes={product.attributes}
