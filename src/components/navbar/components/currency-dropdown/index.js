@@ -29,14 +29,21 @@ class CurrencyDropDown extends Component {
 
   handleChangeCurrency = (currency) => {
     this.changeCurrentCurrency(currency);
-
     this.toggleCurrencyDropDown();
   };
 
   renderCurrencies = (currencies) => {
     return currencies.map((currency) => {
+      const isActive =
+        JSON.stringify(currency) === JSON.stringify(this.props.currentCurrency);
+
       return (
-        <li className={Styles.currency__dropdown__option} key={currency.symbol}>
+        <li
+          className={`${Styles.currency__dropdown__option} ${
+            isActive ? Styles.currency__dropdown__optionActive : ""
+          }`}
+          key={currency.symbol}
+        >
           <button onClick={() => this.handleChangeCurrency(currency)}>
             {" "}
             <span>{currency.symbol}</span>
