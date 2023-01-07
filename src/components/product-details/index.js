@@ -26,9 +26,6 @@ class ProductDetails extends Component {
 
   renderSmallImages = (product) => {
     let gallery = product.gallery;
-    if (product.gallery.length > 3) {
-      gallery = gallery.slice(0, 3);
-    }
 
     return gallery.map((image, index) => (
       <div
