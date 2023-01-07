@@ -1,4 +1,3 @@
-import { current } from "@reduxjs/toolkit";
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import { calculateTotalPrice } from "../../helpers/cart";

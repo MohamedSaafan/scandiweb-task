@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { loadCurrencyFromLocalStorage } from "../helpers/currencies-localStorage";
 import rootReducer from "./reducers";
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

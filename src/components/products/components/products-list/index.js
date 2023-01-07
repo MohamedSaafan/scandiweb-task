@@ -1,10 +1,6 @@
 import { Component } from "react";
 import Product from "../product";
 import "./products-list.scss";
-import clothesImage from "../../../../images/clothes.png";
-import clothesImage2 from "../../../../images/clothes2.png";
-import clothesImage3 from "../../../../images/clothes3.png";
-import clothesImage1 from "../../../../images/Image.png";
 
 class ProductsList extends Component {
   renderProducts = (products) => {

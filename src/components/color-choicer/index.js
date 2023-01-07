@@ -36,7 +36,7 @@ class ColorChoices extends Component {
     event.currentTarget.classList.add("colorchoices__choiceActive");
   };
 
-  renderChoices = (choices, isMini) => {
+  renderChoices = (choices) => {
     return choices.map((choice) => {
       const activeClass =
         choice.value === this.state.color.value
@@ -66,7 +66,7 @@ class ColorChoices extends Component {
 
   render() {
     const choices = this.props.choices;
-    const { isMini } = this.props;
+
     return (
       <>
         <h4 className="productdetails__subtitle">COLOR: </h4>

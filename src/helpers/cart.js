@@ -7,6 +7,7 @@ export const getCartProducts = (products, cart) => {
   return cart.map((item) => {
     const product = products.find((product) => product.id === item.id);
     if (product) return { product, amount: item.quantity };
+    return undefined;
   });
 };
 

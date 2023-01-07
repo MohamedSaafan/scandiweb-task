@@ -1,11 +1,8 @@
 import { Component } from "react";
-import ColorChoices from "../color-choicer";
 import { fetchProduct } from "../../redux/actions/creators/prodcuts";
 import { addToCart } from "../../redux/actions/creators/cart";
 import "./product-details.scss";
 import { connect } from "react-redux";
-import OptionChoicer from "../option-choicer";
-import { Link } from "react-router-dom";
 import { getPrice } from "../../helpers/getPrice";
 import Options from "../options";
 import parse from "html-react-parser";
@@ -44,7 +41,7 @@ class ProductDetails extends Component {
   };
 
   render() {
-    const { products, status, currentCurrency, cartProducts } = this.props;
+    const { products, status, currentCurrency } = this.props;
 
     const product = products.find((product) => {
       if (!product) return false;
@@ -55,10 +52,10 @@ class ProductDetails extends Component {
 
     if (status === "loading" || !currentCurrency) return <h1> Loading....</h1>;
 
-    let isInCart;
-    cartProducts.forEach((cartProduct) => {
-      if (cartProduct.id === product.id) isInCart = true;
-    });
+    // let isInCart;
+    // cartProducts.forEach((cartProduct) => {
+    //   if (cartProduct.id === product.id) isInCart = true;
+    // });
 
     const productPrice = getPrice(product, currentCurrency);
 

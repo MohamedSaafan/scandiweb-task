@@ -1,8 +1,5 @@
-import { filter } from "fontawesome";
 import {
   ADD_ITEM_TO_CART,
-  DECREASE_QUANTITY_OF_PRODUCT,
-  INCREASE_QUANTITY_OF_PRODUCT,
   REMOVE_ITEM_FROM_CART,
   SET_CART_AMOUNT,
 } from "../actions/types/cart";

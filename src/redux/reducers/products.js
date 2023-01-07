@@ -1,5 +1,6 @@
 import {
   FETCH_PRODUCT,
+  FETCH_PRODUCT_ERROR,
   FETCH_PRODUCT_LOADING,
 } from "../actions/types/products";
 
@@ -16,7 +17,7 @@ const productsReducer = (state = inititialState, action) => {
 
     case FETCH_PRODUCT_LOADING:
       return { ...state, status: "loading" };
-    case FETCH_PRODUCT_LOADING:
+    case FETCH_PRODUCT_ERROR:
       return { ...state, errorMessage: action.payload };
     default:
       return state;

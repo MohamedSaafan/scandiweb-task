@@ -1,6 +1,4 @@
-import image from "../../../../images/Image.png";
 import { Component } from "react";
-
 import "./cart-product.scss";
 import { connect } from "react-redux";
 import { getPrice } from "../../../../helpers/getPrice";

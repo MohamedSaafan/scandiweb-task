@@ -6,7 +6,6 @@ import {
   SET_CATEGORIES_ERROR,
   SET_CATEGORIES_LOADING,
 } from "../types/categories";
-import { SET_CURRENT_CURRENCY } from "../types/currency";
 const fetchCategoriesQuery = gql`
   {
     categories {

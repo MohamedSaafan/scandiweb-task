@@ -5,7 +5,7 @@ import OptionChoicer from "../option-choicer";
 class Options extends Component {
   handleColorChange = (color) => {};
   handleSizeChange = (size) => {};
-  handleColorChange = (color) => {};
+
   renderOptions = (attributes, productId) => {
     return attributes.map((attribute) => {
       if (attribute.type === "swatch")

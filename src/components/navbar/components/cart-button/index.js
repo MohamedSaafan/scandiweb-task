@@ -4,7 +4,6 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { countCartProducts } from "../../../../helpers/cart";
 import CartOverlay from "../../../cart-overlay";
-import Modal from "../../../modal";
 import Styles from "./cart-button.module.scss";
 class CartButton extends Component {
   constructor(props) {

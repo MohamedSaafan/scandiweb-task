@@ -36,7 +36,7 @@ class Product extends Component {
   };
   render() {
     const props = this.props;
-    const { product, cart } = props;
+    const { product } = props;
     const price = this.evaluatePrice();
     if (this.state.shouldRedirectToCart) return <Redirect to="/cart" />;
 
@@ -71,7 +71,7 @@ class Product extends Component {
         <div className="product__details">
           <h4 className="product__title">{product.name}</h4>
           <p className="product__price">
-            {price?.currency.symbol || "" + " "} {price?.amount.toFixed(2)}
+            {price?.currency.symbol || " "} {price?.amount.toFixed(2)}
           </p>
         </div>
       </article>
