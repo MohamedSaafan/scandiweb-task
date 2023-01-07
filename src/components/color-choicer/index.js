@@ -21,12 +21,14 @@ class ColorChoices extends Component {
     });
   }
   changeColor = (color, optionsId, productId) => {
+    if (this.props.shouldNotChangeOptions) return;
     this.setState({ color });
     setLocalStorageOption(optionsId, productId, color);
     this.props.handleColorChange(color);
   };
 
   setActiveClass = (event) => {
+    if (this.props.shouldNotChangeOptions) return;
     const lis = this.ulRef.current.children;
     for (let li of lis) {
       li.classList.remove("colorchoices__choiceActive");

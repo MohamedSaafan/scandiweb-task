@@ -9,11 +9,11 @@ class Products extends Component {
   }
 
   render() {
-    const { products, loadingStatus } = this.props;
+    const { products, loadingStatus, activeCategory } = this.props;
 
     return (
       <section className="products">
-        <h2 className="products__heading">Category name</h2>
+        <h2 className="products__heading">{activeCategory}</h2>
         <ProductsList products={products} loadingStatus={loadingStatus} />
       </section>
     );
@@ -29,6 +29,7 @@ const mapStateToProps = (state) => {
   return {
     products: activeCategoryDetails?.products || [],
     loadingStatus: status,
+    activeCategory,
   };
 };
 export default connect(mapStateToProps)(Products);

@@ -18,6 +18,7 @@ class Options extends Component {
             key={attribute.id}
             isMini={this.props.isMini}
             productId={productId}
+            shouldNotChangeOptions={this.props.shouldNotChangeOptions}
           />
         );
 
@@ -29,6 +30,7 @@ class Options extends Component {
           key={attribute.id}
           isMini={this.props.isMini}
           productId={productId}
+          shouldNotChangeOptions={this.props.shouldNotChangeOptions}
         />
       );
     });

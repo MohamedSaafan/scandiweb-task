@@ -4,7 +4,7 @@ import {
   setLocalStorageOption,
 } from "../../helpers/options-local-storage";
 import "./size-choices.scss";
-class SizesChoices extends Component {
+class OptionsRenderer extends Component {
   constructor(props) {
     super(props);
     this.state = { option: {} };
@@ -20,11 +20,15 @@ class SizesChoices extends Component {
     this.setState({ option: storedOptionValue || this.props.options[0] });
   }
   changeOption = (option, optionsId, productId) => {
+    console.log(option, "from changing option");
+
+    if (this.props.shouldNotChangeOptions) return;
     this.setState({ option });
     setLocalStorageOption(optionsId, productId, option);
   };
 
   setActiveClass = (event) => {
+    if (this.props.shouldNotChangeOptions) return;
     const lis = this.ulRef.current.children;
     for (let li of lis) {
       li.classList.remove("sizeschoices__choiceActive");
@@ -86,4 +90,4 @@ class SizesChoices extends Component {
   }
 }
 
-export default SizesChoices;
+export default OptionsRenderer;

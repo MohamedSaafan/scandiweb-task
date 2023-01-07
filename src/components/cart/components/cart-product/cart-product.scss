@@ -61,5 +61,19 @@
     bottom: 1rem;
     display: flex;
     justify-content: space-between;
+    gap: 8px;
+  }
+  &__arrow {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.73);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 5.62px;
+      height: 11.24px;
+    }
   }
 }

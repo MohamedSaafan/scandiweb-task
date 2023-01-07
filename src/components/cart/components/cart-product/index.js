@@ -10,6 +10,8 @@ import {
   addToCart,
   setCartAmount,
 } from "../../../../redux/actions/creators/cart";
+import rightArrow from "../../../../images/arrow-right.svg";
+import leftArrow from "../../../../images/arrow-left.svg";
 class CartProduct extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +68,7 @@ class CartProduct extends Component {
             attributes={product.attributes}
             isMini={this.props.isMini}
             productId={product.id}
+            shouldNotChangeOptions
           />
         </div>
         <div className="cart__product__right">
@@ -92,13 +95,13 @@ class CartProduct extends Component {
                 className="cart__product__arrow"
                 onClick={() => this.decreaseImageIndex(product.gallery)}
               >
-                {"<"}
+                <img src={leftArrow} alt="left arrow" />
               </button>
               <button
                 className="cart__product__arrow"
                 onClick={() => this.increaseImageIndex(product.gallery)}
               >
-                {">"}
+                <img src={rightArrow} alt="right arrow" />
               </button>
             </div>
           </div>
