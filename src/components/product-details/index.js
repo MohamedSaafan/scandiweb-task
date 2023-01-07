@@ -71,6 +71,11 @@ class ProductDetails extends Component {
           {product && this.renderSmallImages(product)}
         </div>
         <div className="productdetails__mainimage">
+          {!product.inStock && (
+            <span className="product__outofstock">
+              <h3>OUT OF STOCK</h3>
+            </span>
+          )}
           <img
             src={`${product.gallery[this.state.mainImageIndex]}`}
             alt="t-shirt"
@@ -81,7 +86,11 @@ class ProductDetails extends Component {
             <h3 className="productdetails__heading">{product.brand}</h3>
             <h4 className="productdetails__title">{product.name}</h4>
           </div>
-          <Options attributes={product.attributes} productId={product.id} />
+          <Options
+            attributes={product.attributes}
+            productId={product.id}
+            shouldNotChangeOptions
+          />
           <div className="productdetails__price">
             <h4 className="productdetails__subtitle">PRICE: </h4>
             <p>
@@ -89,18 +98,12 @@ class ProductDetails extends Component {
             </p>{" "}
           </div>
           {product.inStock ? (
-            isInCart ? (
-              <Link to="/cart" className="productdetails__addbtn">
-                Item In Cart
-              </Link>
-            ) : (
-              <button
-                className="productdetails__addbtn"
-                onClick={() => this.handleAddToCartClick(product.id)}
-              >
-                ADD TO CART
-              </button>
-            )
+            <button
+              className="productdetails__addbtn"
+              onClick={() => this.handleAddToCartClick(product.id)}
+            >
+              ADD TO CART
+            </button>
           ) : (
             <button
               className="productdetails__addbtn productdetails__addbtnDisabled"
