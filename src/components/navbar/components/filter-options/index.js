@@ -1,4 +1,5 @@
 import { Component, createRef } from "react";
+import { Link } from "react-router-dom";
 import Styles from "./filter-options.module.scss";
 class FilterOptions extends Component {
   constructor(props) {
@@ -35,7 +36,9 @@ class FilterOptions extends Component {
           onClick={this.setActiveClass}
           key={option}
         >
-          <button onClick={() => this.changeCategory(option)}>{option}</button>
+          <button onClick={() => this.changeCategory(option)}>
+            <Link to="/">{option}</Link>
+          </button>
         </li>
       );
     });

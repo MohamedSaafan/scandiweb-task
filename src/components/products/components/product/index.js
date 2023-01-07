@@ -1,13 +1,13 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import circleIcon from "../../../../images/circle-icon.png";
 import { addToCart } from "../../../../redux/actions/creators/cart";
 import "./product.scss";
 class Product extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { shouldRedirectToCart: false };
   }
 
   evaluatePrice = () => {
@@ -32,12 +32,13 @@ class Product extends Component {
     // e.stopPropagation();
     e.preventDefault();
     this.props.addToCart(productId);
+    this.setState({ shouldRedirectToCart: true });
   };
   render() {
     const props = this.props;
     const { product, cart } = props;
     const price = this.evaluatePrice();
-    const inCart = this.inCart(product.id, cart);
+    if (this.state.shouldRedirectToCart) return <Redirect to="/cart" />;
 
     return (
       <article
@@ -57,16 +58,13 @@ class Product extends Component {
               alt="clothes"
               className="product__image"
             />
-            {inCart ? (
-              <>item in cart</>
-            ) : (
-              <button
-                className="product__cart"
-                onClick={(e) => this.handleAddToCartClick(e, product.id)}
-              >
-                <img src={circleIcon} alt="cart" />
-              </button>
-            )}
+
+            <button
+              className="product__cart"
+              onClick={(e) => this.handleAddToCartClick(e, product.id)}
+            >
+              <img src={circleIcon} alt="cart" />
+            </button>
           </div>
         </Link>
 
