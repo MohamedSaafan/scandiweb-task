@@ -38,6 +38,7 @@ class ColorChoices extends Component {
 
   renderChoices = (choices, isMini) => {
     return choices.map((choice) => {
+      console.log(choice, "from choice");
       const activeClass =
         choice.value === this.state.color.value
           ? "colorchoices__choiceActive"
