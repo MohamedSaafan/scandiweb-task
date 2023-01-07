@@ -20,9 +20,17 @@
         height: 100%;
       }
     }
+    &White {
+      button {
+        box-shadow: 3px 0px 27px -8px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: 3px 0px 27px -8px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 3px 0px 27px -8px rgba(0, 0, 0, 0.75);
+      }
+    }
     &Active {
       button {
         border: 1px solid #5ece7b;
+        box-shadow: none;
       }
     }
   }
