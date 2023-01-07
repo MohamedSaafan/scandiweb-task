@@ -12,11 +12,15 @@ class CartOverlay extends Component {
   }
   componentDidMount() {
     this.props.fetchCartProducts();
+    document.addEventListener("click", () => {
+      this.props.closeModal();
+    });
   }
   handleRootModalClick = (event) => {
     if (event.target === this.modalRef.current) {
       this.props.closeModal();
     }
+    event.stopPropagation();
   };
   render() {
     const { products, cart, currentCurrency } = this.props;

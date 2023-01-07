@@ -26,10 +26,13 @@ class CartButton extends Component {
   handleRootModalClick = (e) => {
     e.stopPropagation();
   };
+  handleRootElementClick = (e) => {
+    e.stopPropagation();
+  };
 
   render() {
     return (
-      <div className={Styles.cart}>
+      <div className={Styles.cart} onClick={this.handleRootElementClick}>
         <button className={Styles.cart__button} onClick={this.toggleModal}>
           <div className={Styles.cart__button__count}>
             {this.props.numOfProducts}
