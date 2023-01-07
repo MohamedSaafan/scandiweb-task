@@ -1,3 +1,4 @@
+import { loadCurrencyFromLocalStorage } from "../../helpers/currencies-localStorage";
 import {
   SET_CURRENCY_LOADING,
   SET_CURRENCY_LOADING_ERROR,
@@ -6,10 +7,9 @@ import {
   SET_CURRENCIES,
   SET_CURRENT_CURRENCY,
 } from "../actions/types/currency";
-
 const initialState = {
   currencies: [],
-  currentCurrency: null,
+  currentCurrency: loadCurrencyFromLocalStorage(),
   status: "idle",
   errorMessage: "",
 };
@@ -20,7 +20,7 @@ const currencyReducer = (state = initialState, action) => {
       return {
         ...state,
         currencies: action.payload,
-        currentCurrency: action.payload[0],
+        currentCurrency: loadCurrencyFromLocalStorage() || action.payload[0],
         status: "fullfilled",
       };
     case SET_CURRENT_CURRENCY:

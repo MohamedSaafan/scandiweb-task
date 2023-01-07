@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
+import { loadCurrencyFromLocalStorage } from "../../../../helpers/currencies-localStorage";
 import Styles from "./currency-dropdown.module.scss";
 
 class CurrencyDropDown extends Component {
@@ -14,14 +15,23 @@ class CurrencyDropDown extends Component {
     super(props);
     this.state = { isCurrencyDropOpened: false };
   }
+  componentDidMount() {
+    // setTimeout(() => {
+    //   const previouslySelectedCurrency = loadCurrencyFromLocalStorage();
+    //   console.log(previouslySelectedCurrency, "from previously selected");
+    //   if (previouslySelectedCurrency) {
+    //     this.changeCurrentCurrency(previouslySelectedCurrency);
+    //   }
+    // }, 1000);
+  }
 
   componentDidUpdate() {
-    if (
-      JSON.stringify(this.props.currentCurrency) !==
-      JSON.stringify(this.props.currentCurrency)
-    ) {
-      this.setState({ currentCurrency: this.props.currentCurrency });
-    }
+    // if (
+    //   JSON.stringify(this.props.currentCurrency) !==
+    //   JSON.stringify(this.props.currentCurrency)
+    // ) {
+    //   this.setState({ currentCurrency: this.props.currentCurrency });
+    // }
   }
 
   toggleCurrencyDropDown = () => {
@@ -33,6 +43,7 @@ class CurrencyDropDown extends Component {
   };
 
   changeCurrentCurrency = (currency) => {
+    console.log(currency, "from changing currency");
     this.props.handleCurrencyChange(currency);
   };
 
