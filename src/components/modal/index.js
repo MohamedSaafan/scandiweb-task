@@ -6,6 +6,11 @@ class Modal extends Component {
     super(props);
     this.state = { isModalOpened: false };
   }
+  componentDidMount() {
+    const el = document.createElement("div");
+
+    document.addEventListener("click", (e) => {});
+  }
 
   render() {
     return ReactDOM.createPortal(

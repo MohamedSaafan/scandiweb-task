@@ -1,8 +1,4 @@
 import { Component, createRef } from "react";
-import {
-  getLocalStorageOption,
-  setLocalStorageOption,
-} from "../../helpers/options-local-storage";
 import "./size-choices.scss";
 class OptionsRenderer extends Component {
   constructor(props) {
@@ -12,19 +8,13 @@ class OptionsRenderer extends Component {
   }
 
   componentDidMount() {
-    const storedOptionValue = getLocalStorageOption(
-      this.props.id,
-      this.props.productId
-    );
-
-    this.setState({ option: storedOptionValue || this.props.options[0] });
+    this.changeOption(this.props.options[0]);
   }
-  changeOption = (option, optionsId, productId) => {
-    console.log(option, "from changing option");
-
+  changeOption = (option) => {
     if (this.props.shouldNotChangeOptions) return;
+    console.log(option, "from option");
     this.setState({ option });
-    setLocalStorageOption(optionsId, productId, option);
+    this.props.selectAttribute(this.props.id, option.id);
   };
 
   setActiveClass = (event) => {

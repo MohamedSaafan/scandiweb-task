@@ -31,7 +31,7 @@ class Product extends Component {
   handleAddToCartClick = (e, productId) => {
     // e.stopPropagation();
     e.preventDefault();
-    this.props.addToCart(productId);
+    this.props.addToCart(productId, "defaultOptions");
     this.setState({ shouldRedirectToCart: true });
   };
   render() {

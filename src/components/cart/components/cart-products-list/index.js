@@ -3,13 +3,16 @@ import CartProduct from "../cart-product";
 
 class CartProductsList extends Component {
   renderProducts = (products) => {
-    return products.map((product) => (
-      <CartProduct
-        product={product}
-        key={product.product.id}
-        isMini={this.props.isMini ? true : false}
-      />
-    ));
+    return products.map((product) => {
+      return (
+        <CartProduct
+          product={product}
+          attributes={product.selectedAttributes}
+          key={product.UUID}
+          isMini={this.props.isMini ? true : false}
+        />
+      );
+    });
   };
   render() {
     const { products } = this.props;

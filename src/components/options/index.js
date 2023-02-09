@@ -13,7 +13,10 @@ class Options extends Component {
           <ColorChoices
             choices={attribute.items}
             id={attribute.id}
+            selectedId={attribute.selected}
+            isCartOption={this.props.isCartOptions}
             currentActiveChoice={attribute.items[0]}
+            selectAttribute={this.props.selectAttribute}
             handleColorChange={this.handleColorChange}
             key={attribute.id}
             isMini={this.props.isMini}
@@ -26,6 +29,7 @@ class Options extends Component {
         <OptionChoicer
           options={attribute.items}
           title={attribute.name}
+          selectAttribute={this.props.selectAttribute}
           id={attribute.id}
           key={attribute.id}
           isMini={this.props.isMini}

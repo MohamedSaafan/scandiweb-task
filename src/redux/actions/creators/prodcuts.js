@@ -3,40 +3,40 @@ import {
   FETCH_PRODUCT,
   FETCH_PRODUCT_ERROR,
   FETCH_PRODUCT_LOADING,
+  SELECT_ACTIVE_PRODUCT_ATTRIBUTE,
 } from "../types/products";
 import { baseUri } from "../../../api/consts";
-
-export const fetchProduct = (id) => async (dispatch) => {
-  const fetchProductQuery = gql`
-    query getProduct($id: String!) {
-      product(id: $id) {
-        id
-        gallery
-        name
-        category
-        description
-        brand
-        inStock
-        prices {
-          currency {
-            symbol
-            label
-          }
-          amount
+const fetchProductQuery = gql`
+  query getProduct($id: String!) {
+    product(id: $id) {
+      id
+      gallery
+      name
+      category
+      description
+      brand
+      inStock
+      prices {
+        currency {
+          symbol
+          label
         }
-        attributes {
-          name
-          type
+        amount
+      }
+      attributes {
+        name
+        type
+        id
+        items {
+          displayValue
+          value
           id
-          items {
-            displayValue
-            value
-            id
-          }
         }
       }
     }
-  `;
+  }
+`;
+export const fetchProduct = (id) => async (dispatch) => {
   dispatch({ type: FETCH_PRODUCT_LOADING });
   try {
     const response = await request({
@@ -44,9 +44,16 @@ export const fetchProduct = (id) => async (dispatch) => {
       document: fetchProductQuery,
       variables: { id },
     });
+    const initializedAttributes = response.product.attributes.map((attr) => {
+      attr.selected = attr.items[0];
+
+      return attr;
+    });
+    console.log(initializedAttributes, "from initialized attributes");
+    response.product.attributes = initializedAttributes;
     dispatch({ type: FETCH_PRODUCT, payload: response.product });
   } catch (err) {
-    console.log(err, "from err");
+    console.log(err, "from err fetching product");
     dispatch({ type: FETCH_PRODUCT_ERROR, payload: err.message });
   }
 };
@@ -64,3 +71,11 @@ export const fetchCartProducts = (cart) => (dispatch, getState) => {
     }
   });
 };
+
+export const selectActiveProductAttribute =
+  (attributeId, itemId) => async (dispatch, getState) => {
+    dispatch({
+      type: SELECT_ACTIVE_PRODUCT_ATTRIBUTE,
+      payload: { attributeId, itemId },
+    });
+  };

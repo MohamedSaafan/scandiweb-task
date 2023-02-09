@@ -1,5 +1,8 @@
 import { Component } from "react";
-import { fetchProduct } from "../../redux/actions/creators/prodcuts";
+import {
+  fetchProduct,
+  selectActiveProductAttribute,
+} from "../../redux/actions/creators/prodcuts";
 import { addToCart } from "../../redux/actions/creators/cart";
 import "./product-details.scss";
 import { connect } from "react-redux";
@@ -10,12 +13,17 @@ import * as sanitizeHtml from "sanitize-html";
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { mainImageIndex: 0 };
+    this.state = {
+      mainImageIndex: 0,
+      productAttributes: [],
+      product: null,
+      initalizedProductAttributes: false,
+    };
   }
+
   componentDidMount() {
     this.props.fetchProduct(this.props.match.params.id);
   }
-  componentDidUpdate() {}
 
   handleSmallImageClick = (index) => {
     this.setState({ mainImageIndex: index });
@@ -36,21 +44,18 @@ class ProductDetails extends Component {
   };
 
   handleAddToCartClick = (productId) => {
-    this.props.addToCart(productId);
+    this.props.addToCart(productId, this.props.activeProduct.attributes);
     this.props.history.push("/cart");
+  };
+  selectAttribute = (attributeId, itemId) => {
+    this.props.selectActiveProductAttribute(attributeId, itemId);
   };
 
   render() {
-    const { products, status, currentCurrency } = this.props;
-
-    const product = products.find((product) => {
-      if (!product) return false;
-      return product.id === this.props.match.params.id;
-    });
-
-    if (!product) return <h1>product not found</h1>;
+    const { activeProduct: product, status, currentCurrency } = this.props;
 
     if (status === "loading" || !currentCurrency) return <h1> Loading....</h1>;
+    if (!product) return <h1>product not found</h1>;
 
     // let isInCart;
     // cartProducts.forEach((cartProduct) => {
@@ -58,7 +63,6 @@ class ProductDetails extends Component {
     // });
 
     const productPrice = getPrice(product, currentCurrency);
-
     return (
       <section className="productdetails">
         <div className="productdetails__images">
@@ -82,8 +86,9 @@ class ProductDetails extends Component {
           </div>
 
           <Options
-            attributes={product.attributes}
+            attributes={[...product.attributes]}
             productId={product.id}
+            selectAttribute={this.selectAttribute}
             shouldNotChangeOptions={product.inStock ? false : true}
           />
           <div className="productdetails__price">
@@ -116,11 +121,12 @@ class ProductDetails extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const { products, status } = state.products;
+  const { products, status, activeProduct } = state.products;
   const { currentCurrency } = state.currency;
   const { cart } = state;
   return {
     products,
+    activeProduct,
     status,
     currentCurrency,
     cartProducts: cart,
@@ -129,5 +135,6 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   fetchProduct,
   addToCart,
+  selectActiveProductAttribute,
 };
 export default connect(mapStateToProps, actionCreators)(ProductDetails);

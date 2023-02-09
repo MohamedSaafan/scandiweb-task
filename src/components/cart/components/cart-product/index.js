@@ -34,12 +34,6 @@ class CartProduct extends Component {
     });
   };
 
-  handleSizeChange = (size) => {
-    console.log(size, "from size changed in the product cart component");
-  };
-  handleColorChange = (color) => {
-    console.log(color, " from color change inside the product cart component");
-  };
   handleIncreaseClick = (product, amount) => {
     this.props.setCartAmount(product.id, amount);
   };
@@ -63,10 +57,11 @@ class CartProduct extends Component {
             {price.currency.symbol} {price.amount.toFixed(2)}
           </p>
           <Options
-            attributes={product.attributes}
+            attributes={props.attributes}
             isMini={this.props.isMini}
             productId={product.id}
             shouldNotChangeOptions
+            isCartOptions
           />
         </div>
         <div className="cart__product__right">
